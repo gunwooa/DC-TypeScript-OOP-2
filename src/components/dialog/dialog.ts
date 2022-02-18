@@ -16,7 +16,7 @@ export class InputDialog
       <dialog class="dialog">
         <div class="dialog__container">
           <button class="close">&times;</button>
-          <div class="dialog__body"></div>
+          <div id="dialog__body"></div>
           <button class="dialog__submit">ADD</button>
         </div>
       </dialog>
