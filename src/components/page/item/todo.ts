@@ -16,7 +16,7 @@ export class TodoComponent extends BaseComponent<HTMLElement> {
     titleElement.textContent = title;
 
     const todoElement = this.element.querySelector(
-      '#todo-label'
+      '.todo-label'
     )! as HTMLLabelElement;
     todoElement.textContent = todo;
   }
