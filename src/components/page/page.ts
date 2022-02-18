@@ -22,7 +22,7 @@ export class PageItemComponent
 
   constructor() {
     super(`
-      <li class="page-item">
+      <li draggable="true" class="page-item">
         <section class="page-item__body"></section>
         <div class="page-item__controls">
           <button class="close">&times;</button>
@@ -34,6 +34,14 @@ export class PageItemComponent
     closeBtn.onclick = () => {
       this.closeListener && this.closeListener();
     };
+
+    this.element.addEventListener('dragstart', (event: DragEvent) => {
+      this.onDragStart(event);
+    });
+
+    this.element.addEventListener('dragend', (event: DragEvent) => {
+      this.onDragEnd(event);
+    });
   }
 
   addChild(child: Component) {
@@ -46,6 +54,14 @@ export class PageItemComponent
   setOnCloseListener(listener: OnCloseListener) {
     this.closeListener = listener;
   }
+
+  onDragStart(event: DragEvent) {
+    console.log('dragstart', event);
+  }
+
+  onDragEnd(event: DragEvent) {
+    console.log('dragend', event);
+  }
 }
 
 export class PageComponent
@@ -54,6 +70,14 @@ export class PageComponent
 {
   constructor(private pageItemConstructor: SectionContainerConstructor) {
     super(`<ul class="page"></ul>`);
+
+    this.element.addEventListener('dragover', (event: DragEvent) => {
+      this.onDragOver(event);
+    });
+
+    this.element.addEventListener('drop', (event: DragEvent) => {
+      this.onDrop(event);
+    });
   }
 
   addChild(child: Component) {
@@ -63,5 +87,14 @@ export class PageComponent
     item.setOnCloseListener(() => {
       item.removeFrom(this.element);
     });
+  }
+
+  onDragOver(event: DragEvent) {
+    event.preventDefault();
+    console.log('onDragOver');
+  }
+  onDrop(event: DragEvent) {
+    event.preventDefault();
+    console.log('onDrop');
   }
 }
